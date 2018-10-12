@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Grupa D</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <style>
+            p {
+             color:red;   
+            }
+
+            #imie {
+                color: green;
+            }
+            
+            .klasa1
+            {
+                color:yellow;
+            }
+            
+            .klasa2 
+            {
+                color: rgb(0,255,125);
+            }
+            
+            .klasa3 {
+                background: rgba(125,255,0,0.5);
+            }
+            
+            p:nth-child(ODD)
+            {
+                color:green;
+            }
+            
+            p.klasa1 > span {
+                text-decoration: underline;
+            }
+   
+            table tbody tr:nth-child(EVEN) {
+                background-color: #f0f0f0;
+            }
+
+            table thead th {
+                
+                border-bottom: 1px solid dimgrey;
+            }
+            
+            table tbody tr td:nth-child(1):hover
+            {
+                background-color: red;
+                cursor: pointer;
+            }
+            
+            
+            input[required="required"] {
+                border-radius: 4px;
+            }
+            
+        </style>
+        
+    </head>
+    <body>
+        <div>
+            
+            <h1 class="klasa1">klasa1</h1>
+            <h2 class="klasa1 klasa3">klasa1 klasa3</h2>
+            <h3 class="klasa2 klasa3">klasa2 klasa3</h3>
+            <h3 class="klasa2">klasa2</h3>
+        
+            <p>p1</p>
+            <p>p2</p>
+            <p>p3 <strong><span>opis</span></strong> <span>opis</span></p>
+            <p>p4</p>
+            <p>p5</p>
+            <p>p6</p>
+            
+            <ul>
+                <li>Element 1</li>
+                <li>Element 1</li>
+                <li>Element 1</li>
+                <li>Element 1</li>
+                <li>Element 1</li>
+                <li>Element 1</li>
+                <li>Element 1</li>
+            </ul>
+            
+            <ol>
+                <li>Element 1</li>
+                <li>Element 1</li>
+                <li>Element 1</li>
+                <li>Element 1</li>
+                <li>Element 1</li>
+                <li>Element 1</li>
+                <li>Element 1</li>
+            </ol>
+           <img alt="opis"  style="max-width: 100%"  src="./img/img1.jpg">
+           
+           <table>
+               <thead>
+                   <tr>
+                       <th>Nag. 1</th>
+                       <th>Nag. 2</th>
+                       <th>Nag. 3</th>
+                       <th>Nag. 4</th>
+                   </tr>
+               </thead>
+               <tbody>
+                   <tr>
+                       <td>eNag. 1</td>
+                       <td>eNag. 2</td>
+                       <td>eNag. 3</td>
+                       <td>eNag. 4</td>
+                   </tr>
+                   <tr>
+                       <td>eNag. 1</td>
+                       <td>eNag. 2</td>
+                       <td>eNag. 3</td>
+                       <td>eNag. 4</td>
+                   </tr>
+                   <tr>
+                       <td>eNag. 1</td>
+                       <td>eNag. 2</td>
+                       <td>eNag. 3</td>
+                       <td>eNag. 4</td>
+                   </tr>
+                   <tr>
+                       <td>eNag. 1</td>
+                       <td>eNag. 2</td>
+                       <td>eNag. 3</td>
+                       <td>eNag. 4</td>
+                   </tr>
+                   <tr>
+                       <td>eNag. 1</td>
+                       <td>eNag. 2</td>
+                       <td>eNag. 3</td>
+                       <td>eNag. 4</td>
+                   </tr>
+                   <tr>
+                       <td>eNag. 1</td>
+                       <td>eNag. 2</td>
+                       <td>eNag. 3</td>
+                       <td>eNag. 4</td>
+                   </tr>
+               </tbody>
+           </table>
+           
+           
+           <form method="GET">
+               <label for="email">Email</label>
+               <input type="email" value="" id="email" placeholder="podaj email" />
+               
+               <label for="imie">Imie</label>
+               <input type="text" value="" id="imie" placeholder="podaj imie" required="required" />
+               
+               <input type="submit" value="Zapisz" />
+               
+           </form>
+           
+           
+           <p> 
+            Lorem ipsum dolor sit amet enim. Etiam ullamcorper. <a style="background-color: gray;" href="http://google.pl/">TODO write content</a> 
+            Suspendisse a pellentesque dui, non felis. Maecenas malesuada elit lectus felis, malesuada ultricies.
+            Curabitur et ligula. Ut molestie                     a, ultricies porta urna.
+            Vestibulum commodo volutpat a, convallis ac, 
+            laoreet enim. Phasellus fermentum in, dolor. Pellentesque facilisis. Nulla imperdiet sit amet magna. 
+            Vestibulum dapibus, mauris nec malesuada fames ac turpis velit, rhoncus eu, luctus et interdum adipiscing wisi. Aliquam erat ac ipsum. Integer aliquam purus. Quisque lorem tortor fringilla sed, vestibulum id, eleifend justo vel bibendum sapien massa ac turpis faucibus orci luctus non, consectetuer lobortis quis, varius in, purus. Integer ultrices posuere cubilia Curae, Nulla ipsum dolor lacus, suscipit adipiscing. Cum sociis natoque penatibus et ultrices volutpat. Nullam wisi ultricies a, gravida vitae, dapibus risus ante sodales lectus blandit eu, tempor diam pede cursus vitae, ultricies eu, faucibus quis, porttitor eros cursus lectus, pellentesque eget, bibendum a, gravida ullamcorper quam. Nullam viverra consectetuer. Quisque cursus et, porttitor risus. Aliquam sem. In hendrerit nulla quam nunc, accumsan congue. Lorem ipsum primis in nibh vel risus. Sed vel lectus. Ut sagittis, ipsum dolor quam.
+           </p> 
+            <div>    
+            laoreet enim.<div style="background-color: gray; width:100px;"> Phasellus fermentum in,</div><div> dolor. Pellentesque facilisis.</div> Nulla imperdiet sit amet magna. 
+            </div>    
+        
+        
+        </div>
+    </body>
+</html>

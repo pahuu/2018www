@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Szachownica</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            
+            /* opis */  
+            
+            #szachy {
+                width: 600px;
+                border: 1px solid burlywood;
+            }
+            
+            #szachy .wiersz
+            {
+                height: 70px;
+            }
+            
+            #szachy .wiersz > div
+            {
+                float: left;
+                height: 70px;
+                width:560px;
+            }
+            
+            #szachy .wiersz > div:nth-child(even) > div 
+            {
+                float: left;
+                height: 70px;
+                width:70px;
+            }
+            
+            #szachy .wiersz > div:nth-child(odd)
+            {
+                float: left;
+                height: 70px;
+                width:20px;
+                text-align: center;
+            }
+            
+            #szachy .wiersz:nth-child(odd) > div > div:nth-child(odd)
+            {
+                background-color: bisque;
+            }
+            
+            #szachy .wiersz:nth-child(even) > div > div:nth-child(even)
+            {
+                background-color: bisque;
+            }
+            
+            #szachy .litery {height: 17px;}
+            #szachy .litery div 
+            {
+                float: left;
+                width: 70px;
+                text-align: center;
+                height: 17px;
+                
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div id="szachy">
+            <div class="litery">
+                <div>A</div>
+                <div>B</div>
+                <div>C</div>
+                <div>D</div>
+                <div>E</div>
+                <div>F</div>
+                <div>G</div>
+                <div>H</div>
+            </div>
+            <div class="wiersz">
+                <div>1</div>
+                <div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div>1</div>
+            </div>
+            <div class="wiersz">
+                <div>2</div>
+                <div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div>2</div>
+            </div>
+            <div class="wiersz">
+                <div></div>
+                <div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div></div>
+            </div>
+            <div class="wiersz">
+                <div></div>
+                <div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div></div>
+            </div>
+            <div class="wiersz">
+                <div></div>
+                <div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div></div>
+            </div>
+            <div class="wiersz">
+                <div></div>
+                <div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div></div>
+            </div>
+            <div class="wiersz">
+                <div></div>
+                <div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div></div>
+            </div>
+            <div class="wiersz">
+                <div></div>
+                <div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div></div>
+            </div>
+            <div class="litery">
+                <div>A</div>
+                <div>B</div>
+                <div>C</div>
+                <div>D</div>
+                <div>E</div>
+                <div>F</div>
+                <div>G</div>
+                <div>H</div>
+            </div>
+            
+        </div>
+    </body>
+</html>
