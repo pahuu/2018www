@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            #szachy {
+                position: relative;
+                border: 1px gray solid;
+                padding: 3px;
+                box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+                width:800px;
+            }
+            
+            /*  
+            https://www.w3schools.com/cssref/css_selectors.asp
+            
+            */
+            
+            
+            #szachy .wiersz
+            {
+                height: 100px;
+            }
+            
+            #szachy .wiersz > div
+            {
+                float: left;
+                width: 100px;
+                height: 100px;
+            }
+            #szachy .wiersz:nth-child(odd) > div:nth-child(odd) {
+                background-color: green;
+            }
+            
+            #szachy .wiersz:nth-child(even) > div:nth-child(even) {
+                background-color: green;
+            }
+            
+            
+            #szachy span 
+            {
+                position: absolute;
+                left: 10px;
+                top: 10px;
+                display: inline-block;
+                width: 70px;
+                height: 70px;
+                border-radius: 35px;
+                border: 1px solid green;
+                box-shadow: 1px 1px 5px grey;
+                margin: 15px;
+                background-image: url('./img/korona.png');
+                background-repeat: no-repeat;
+                background-position: center center;
+                background-size: 0%;
+                transition: 5s all;
+            }
+            
+            #szachy .bialy 
+            {
+                background-color: beige;
+            }
+            
+            #szachy .czarny
+            {
+                background-color: red;
+            }
+            
+           #szachy .kr
+           {
+                box-shadow: 0px 0px 20px yellow;
+                background-size: 70%;
+           }
+            
+        </style>
+
+    </head>
+    <body>
+        <div id="szachy">
+            <div class="wiersz">
+                <div><span class="p1 bialy"></span></div>
+                <div></div>
+                <div><span class="p2 bialy"></span></div>
+                <div></div>
+                <div><span  class="p3 bialy kr"></span></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="wiersz">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="wiersz">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="wiersz">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="wiersz">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="wiersz">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="wiersz">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="wiersz">
+                <div></div>
+                <div><span  class="p1 czarny"></span></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            
+             <span class="p3 czarny"></span>
+
+        </div>
+    </body>
+</html>
