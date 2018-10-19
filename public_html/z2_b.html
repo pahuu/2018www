@@ -11,6 +11,7 @@
             #szachy {
                 width: 600px;
                 border: 1px solid burlywood;
+                position: relative;
             }
             
             #szachy .wiersz
@@ -60,6 +61,95 @@
                 
             }
             
+            #szachy .pionki div {
+                position: absolute;
+                width: 41px;
+                height: 65px;
+                
+                top: 18px;
+                left: 22px;
+                background-image: url('img/pionki.png');
+                background-repeat: no-repeat;
+                background-size: 216px 133px;
+                transition: all 3s;
+            }
+            
+            #szachy .pionki div.pionek
+            {
+                background-position: -175px 0px;
+            }
+            
+            #szachy .pionki div.czarny
+            {
+                background-position-y:-63px;
+            }
+            
+            
+            #szachy .pionki div.a
+            {
+                left:33px;
+            }
+            #szachy .pionki div.b
+            {
+                left:100px;
+            }
+            #szachy .pionki div.c
+            {
+                left:170px;
+            }
+            #szachy .pionki div.d
+            {
+                left:170px;
+            }
+            #szachy .pionki div.e
+            {
+                left:170px;
+            }
+            #szachy .pionki div.f
+            {
+                left:170px;
+            }
+            #szachy .pionki div.g
+            {
+                left:170px;
+            }
+            #szachy .pionki div.h
+            {
+                left:170px;
+            }
+            #szachy .pionki div.n1
+            {
+                top:10px;
+            }
+            #szachy .pionki div.n2
+            {
+                top:90px;
+            }
+            #szachy .pionki div.n3
+            {
+                top:160px;
+            }
+            #szachy .pionki div.n4
+            {
+                top:230px;
+            }
+            #szachy .pionki div.n5
+            {
+                top:300px;
+            }
+            #szachy .pionki div.n6
+            {
+                top:370px;
+            }
+            #szachy .pionki div.n7
+            {
+                top:440px;
+            }
+            #szachy .pionki div.n8
+            {
+                top:510px;
+            }
+            
         </style>
     </head>
     <body>
@@ -77,9 +167,9 @@
             <div class="wiersz">
                 <div>1</div>
                 <div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
+                    <div data-kom="a n1"></div>
+                    <div data-kom="b n1"></div>
+                    <div data-kom="c n1"></div>
                     <div></div>
                     <div></div>
                     <div></div>
@@ -196,7 +286,13 @@
                 <div>G</div>
                 <div>H</div>
             </div>
-            
+            <div class="pionki">
+                <div class="pionek czarny a n3"></div>
+                <div class="pionek  b n4"></div>
+                <div class="pionek czarny c n8"></div>
+            </div>
+            <div class="pionki">
+            </div>
         </div>
     </body>
 </html>
