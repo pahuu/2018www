@@ -14,7 +14,58 @@ and open the template in the editor.
              /* do id=szach */
             #szach {
                 width: 560px;
+                position: relative;
             } 
+            
+            
+            #szach .gracz div
+            {
+                position: absolute;
+                width: 40px;
+                height: 70px;
+                left: 0px;
+                top: 0px;
+                background-image: url('img/pionki.png');
+                background-repeat: no-repeat;
+                background-position-x: -110px;
+                background-position-y: 0px;
+                background-position-y: -7px;
+                background-size: 234px 156px;
+            }
+            
+            #szach .gracz div.czarny{
+                background-position-y: -82px;
+            }
+            
+            #szach .gracz div.pionek
+            {
+                    background-position-x: -192px;
+            }
+            
+            #szach .gracz div.kon
+            {
+                    background-position-x: -117px;
+            }
+            
+            #szach .gracz div.a { left: 15px;}
+            #szach .gracz div.b { left: 85px;}
+            #szach .gracz div.c { left: 155px;}
+            #szach .gracz div.d { left: 225px;}
+            #szach .gracz div.e { left: 295px;}
+            #szach .gracz div.f { left: 365px;}
+            #szach .gracz div.g { left: 435px;}
+            #szach .gracz div.h { left: 505px;}
+            
+            #szach .gracz div.n1 { top: 0px;}
+            #szach .gracz div.n2 { top: 65px;}
+            #szach .gracz div.n3 { top: 140px;}
+            #szach .gracz div.n4 { top: 210px;}
+            #szach .gracz div.n5 { top: 280px;}
+            #szach .gracz div.n6 { top: 350px;}
+            #szach .gracz div.n7 { top: 420px;}
+            #szach .gracz div.n8 { top: 490px;}
+            
+            
             
            #szach .wiersz {
                 height: 70px;
@@ -45,7 +96,7 @@ and open the template in the editor.
                background-color: bisque;
            }
             
-           #szachy {
+           #szach {
                text-align: center;
            }
             
@@ -142,7 +193,13 @@ and open the template in the editor.
                 <div class="kol"></div>
                 <div class="kol"></div>
             </div>
-            
+            <div class="gracz">
+                <div class="pionek czarny a n1"></div>
+                <div class="pionek b n2"></div>
+                <div class="pionek b n7"></div>
+                <div class="kon h n8"></div>
+                <div class="kon czarny d n3"></div>
+            </div>
         </div>
     </body>
 </html>
