@@ -158,10 +158,10 @@
             <div class="litery">
                 <div ng-repeat="item in kolumny ">{{item}}</div>
             </div>
-            <div class="wiersz" ng-repeat="wiersz in wiersze">
+            <div class="wiersz" ng-repeat="(wie, wiersz) in wiersze">
                 <div>{{wiersz}}</div>
                 <div>
-                    <div ng-repeat="item in kolumny "></div>
+                    <div ng-repeat="(kol, item) in kolumny "  ng-click="wierszkolumna(wie, kol)"></div>
                 </div>
                 <div>{{wiersz}}</div>
             </div>
@@ -169,7 +169,8 @@
                 <div ng-repeat="item in kolumny ">{{item}}</div>
             </div>
             <div class="pionki">
-                <div ng-class="klasa_pionek(pionek, 'czarny')" ng-repeat="pionek in pionki.czarne"></div>
+                <div ng-class="klasa_pionek(pionek, 'czarny')" ng-click="pionekklik(pionek)"  ng-repeat="pionek in pionki.czarne"></div>
+                <div ng-class="klasa_pionek(pionek, '')" ng-click="pionekklik(pionek)" ng-repeat="pionek in pionki.biale"></div>
             </div>
             <div class="pionki">
             </div>
@@ -179,24 +180,62 @@
         var app = angular.module('myApp', []);
         app.controller('myCtrl', function($scope) {
             $scope.pionki = {
-                                czarne : [
-                                            {kolumna:1, wiersz:0},
-                                            {kolumna:3, wiersz:0},
-                                         ],
+                                czarne : [],
                                 biale : [],
                             }
             $scope.kolumny = ["A","B","C","D","E","F","G","H"]; //  
             $scope.wiersze = ["1","2","3","4","5","6","7","8"]; //  
+            $scope.aktywnypionek = null;
+            
+            
+            $scope.pionekklik = function(pionek)
+            {
+            $scope.aktywnypionek = pionek;    
+            }
+            
+            $scope.wierszkolumna = function(wiersz, kolumna)
+            {
+                if($scope.aktywnypionek != null)
+                {
+                    $scope.aktywnypionek.wiersz = wiersz;
+                    $scope.aktywnypionek.kolumna = kolumna;
+                }
+            }
             
             //pionek czarny a n3
             $scope.klasa_pionek = function(obj, kolor)
             {
-                let klasa = "pionek " + kolor+ " " + $scope.kolumny[obj.kolumna] + " n" + (obj.wiersz+1);
+                var klasa = "pionek " + kolor+ " " + $scope.kolumny[obj.kolumna] + " n" + (obj.wiersz+1);
                 
                 return  klasa;
             }
             
-            
+  
+            for(i=0; i<4; i++)
+            {
+                var pionek = {
+                    kolumna: (i * 2)+1,
+                    wiersz:6
+                }
+                $scope.pionki.biale.push(pionek);
+                var pionek = {
+                    kolumna: (i * 2)+1,
+                    wiersz:0
+                }
+                $scope.pionki.czarne.push(pionek);
+                
+                var pionek = {
+                    kolumna: (i * 2),
+                    wiersz:7
+                }
+                $scope.pionki.biale.push(pionek);
+                var pionek = {
+                    kolumna: (i * 2),
+                    wiersz:1
+                }
+                $scope.pionki.czarne.push(pionek);
+            }
+        
             
         });
         </script>
