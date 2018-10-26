@@ -4,6 +4,7 @@
         <title>Szachownica</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
         <style>
             
             /* opis */  
@@ -85,37 +86,37 @@
             }
             
             
-            #szachy .pionki div.a
+            #szachy .pionki div.A
             {
                 left:33px;
             }
-            #szachy .pionki div.b
+            #szachy .pionki div.B
             {
                 left:100px;
             }
-            #szachy .pionki div.c
+            #szachy .pionki div.C
             {
                 left:170px;
             }
-            #szachy .pionki div.d
+            #szachy .pionki div.D
             {
-                left:170px;
+                left:240px;
             }
-            #szachy .pionki div.e
+            #szachy .pionki div.E
             {
-                left:170px;
+                left:310px;
             }
-            #szachy .pionki div.f
+            #szachy .pionki div.F
             {
-                left:170px;
+                left:380px;
             }
-            #szachy .pionki div.g
+            #szachy .pionki div.G
             {
-                left:170px;
+                left:445px;
             }
-            #szachy .pionki div.h
+            #szachy .pionki div.H
             {
-                left:170px;
+                left:513px;
             }
             #szachy .pionki div.n1
             {
@@ -152,147 +153,53 @@
             
         </style>
     </head>
-    <body>
+    <body ng-app="myApp" ng-controller="myCtrl">
         <div id="szachy">
             <div class="litery">
-                <div>A</div>
-                <div>B</div>
-                <div>C</div>
-                <div>D</div>
-                <div>E</div>
-                <div>F</div>
-                <div>G</div>
-                <div>H</div>
+                <div ng-repeat="item in kolumny ">{{item}}</div>
             </div>
-            <div class="wiersz">
-                <div>1</div>
+            <div class="wiersz" ng-repeat="wiersz in wiersze">
+                <div>{{wiersz}}</div>
                 <div>
-                    <div data-kom="a n1"></div>
-                    <div data-kom="b n1"></div>
-                    <div data-kom="c n1"></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
+                    <div ng-repeat="item in kolumny "></div>
                 </div>
-                <div>1</div>
-            </div>
-            <div class="wiersz">
-                <div>2</div>
-                <div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-                <div>2</div>
-            </div>
-            <div class="wiersz">
-                <div></div>
-                <div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-                <div></div>
-            </div>
-            <div class="wiersz">
-                <div></div>
-                <div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-                <div></div>
-            </div>
-            <div class="wiersz">
-                <div></div>
-                <div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-                <div></div>
-            </div>
-            <div class="wiersz">
-                <div></div>
-                <div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-                <div></div>
-            </div>
-            <div class="wiersz">
-                <div></div>
-                <div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-                <div></div>
-            </div>
-            <div class="wiersz">
-                <div></div>
-                <div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-                <div></div>
+                <div>{{wiersz}}</div>
             </div>
             <div class="litery">
-                <div>A</div>
-                <div>B</div>
-                <div>C</div>
-                <div>D</div>
-                <div>E</div>
-                <div>F</div>
-                <div>G</div>
-                <div>H</div>
+                <div ng-repeat="item in kolumny ">{{item}}</div>
             </div>
             <div class="pionki">
-                <div class="pionek czarny a n3"></div>
-                <div class="pionek  b n4"></div>
-                <div class="pionek czarny c n8"></div>
+                <div ng-class="klasa_pionek(pionek, 'czarny')" ng-repeat="pionek in pionki.czarne"></div>
             </div>
             <div class="pionki">
             </div>
         </div>
+        
+        <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function($scope) {
+            $scope.pionki = {
+                                czarne : [
+                                            {kolumna:1, wiersz:0},
+                                            {kolumna:3, wiersz:0},
+                                         ],
+                                biale : [],
+                            }
+            $scope.kolumny = ["A","B","C","D","E","F","G","H"]; //  
+            $scope.wiersze = ["1","2","3","4","5","6","7","8"]; //  
+            
+            //pionek czarny a n3
+            $scope.klasa_pionek = function(obj, kolor)
+            {
+                let klasa = "pionek " + kolor+ " " + $scope.kolumny[obj.kolumna] + " n" + (obj.wiersz+1);
+                
+                return  klasa;
+            }
+            
+            
+            
+        });
+        </script>
+        
     </body>
 </html>
