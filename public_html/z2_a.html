@@ -6,200 +6,134 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Szachownica</title>
+        <title>TODO supply a title</title>
         <meta charset="UTF-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
-          
-             /* do id=szach */
-            #szach {
-                width: 560px;
+            #szachy {
                 position: relative;
-            } 
+                border: 1px gray solid;
+                padding: 3px;
+                box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+                width:800px;
+            }
+            
+            /*  
+            https://www.w3schools.com/cssref/css_selectors.asp
+            
+            */
             
             
-            #szach .gracz div
+            #szachy .wiersz
             {
-                position: absolute;
-                width: 40px;
-                height: 70px;
-                left: 0px;
-                top: 0px;
-                background-image: url('img/pionki.png');
-                background-repeat: no-repeat;
-                background-position-x: -110px;
-                background-position-y: 0px;
-                background-position-y: -7px;
-                background-size: 234px 156px;
+                height: 100px;
             }
             
-            #szach .gracz div.czarny{
-                background-position-y: -82px;
-            }
-            
-            #szach .gracz div.pionek
+            #szachy .wiersz > div
             {
-                    background-position-x: -192px;
+                float: left;
+                width: 100px;
+                height: 100px;
+            }
+            #szachy .wiersz:nth-child(odd) > div:nth-child(odd) {
+                background-color: green;
             }
             
-            #szach .gracz div.kon
-            {
-                    background-position-x: -117px;
+            #szachy .wiersz:nth-child(even) > div:nth-child(even) {
+                background-color: green;
             }
             
-            #szach .gracz div.a { left: 15px;}
-            #szach .gracz div.b { left: 85px;}
-            #szach .gracz div.c { left: 155px;}
-            #szach .gracz div.d { left: 225px;}
-            #szach .gracz div.e { left: 295px;}
-            #szach .gracz div.f { left: 365px;}
-            #szach .gracz div.g { left: 435px;}
-            #szach .gracz div.h { left: 505px;}
             
-            #szach .gracz div.n1 { top: 0px;}
-            #szach .gracz div.n2 { top: 65px;}
-            #szach .gracz div.n3 { top: 140px;}
-            #szach .gracz div.n4 { top: 210px;}
-            #szach .gracz div.n5 { top: 280px;}
-            #szach .gracz div.n6 { top: 350px;}
-            #szach .gracz div.n7 { top: 420px;}
-            #szach .gracz div.n8 { top: 490px;}
-            
-            
-            
-           #szach .wiersz {
-                height: 70px;
-            }
-            
-           #szach .wiersz > .kol
-           {
-               float: left;
-               width:70px;
-               height: 70px;
-           }
-           
-           #szach .wiersz:nth-child(odd) > .kol:nth-child(odd)
-           {
-               background-color: bisque;
-           }
-            
-           /*
-           kolory w CSS
-           1) #RRGGBB #000000 - #FFFFFF 
-           2) red blue
-           3) rgb(RRR, GGG, BBB) rgb(0,0,0) - rgb(255,255,255)
-           4) rgba(RRR, GGG, BBB, AA) rgba(0,0,0,0.0) - rgba(255,255,255,1.0)
-           */
-           
-           #szach .wiersz:nth-child(even) > .kol:nth-child(even)
-           {
-               background-color: bisque;
-           }
-            
-           #szach {
-               text-align: center;
-           }
-            
-        </style>
-        
-    </head>
-    <body> <!-- koment...... -->
-        <div id="szach">
+            #szachy .pionki span 
+            { 
 
-            <div class="wiersz">
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-            </div>
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            display: inline-block;
+            width: 52px;
+            height: 82px;
+            background-image: url(./img/pionki.png);
+            background-repeat: no-repeat;
+            /* background-position: center center; */
+            background-size: 278px 167px;
+             transition: 5s all; 
+            }
             
-            <div class="wiersz">
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-            </div>
+            #szachy .pionki span.pionek {background-position-x: -227px;}
+            #szachy .pionki span.kon {background-position-x: -137px;}
+            #szachy .pionki span.goniec {background-position-x: -91px;}
+            #szachy .pionki span.wieza {background-position-x: -182px;}
+            #szachy .pionki span.krol {background-position-x: -2px;}
+            #szachy .pionki span.krolowa {background-position-x: -48px;}
+            #szachy .pionki span.czarny{background-position-y: -79px;}
             
-            <div class="wiersz">
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-            </div>
+            #szachy .pionki span.a {left:26px;}
+            #szachy .pionki span.b {left:126px;}
+            #szachy .pionki span.c {left:226px;}
+            #szachy .pionki span.d {left:326px;}
+            #szachy .pionki span.e {left:426px;}
+            #szachy .pionki span.f {left:526px;}
+            #szachy .pionki span.g {left:626px;}
+            #szachy .pionki span.h {left:726px;}
             
-            <div class="wiersz">
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-            </div>
+            #szachy .pionki span.n1 {top:6px;}
+            #szachy .pionki span.n2 {top:106px;}
+            #szachy .pionki span.n3 {top:206px;}
+            #szachy .pionki span.n4 {top:306px;}
+            #szachy .pionki span.n5 {top:406px;}
+            #szachy .pionki span.n6 {top:506px;}
+            #szachy .pionki span.n7 {top:606px;}
+            #szachy .pionki span.n8 {top:706px;}
+        </style>
+
+    </head>
+    <body ng-app="myApp" ng-controller="myCtrl">
+        
+        <h1>{{Nag}}</h1>
+        
+        
+        <div id="szachy">
             
-            <div class="wiersz">
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
+            <div class="wiersz"  ng-repeat="wiersz in wiersze">
+                <div ng-repeat="kolumna in kolumny"></div>
             </div>
-            
-            <div class="wiersz">
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
+           
+            <div class="pionki">
+                <span ng-repeat="pionek in pionki.gracz1" ng-class="klasa_pionki(pionek, '')"></span>
+                <span ng-repeat="pionek in pionki.gracz2" ng-class="klasa_pionki(pionek, 'czarny')"></span>
             </div>
-            
-            <div class="wiersz">
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-            </div>
-            
-            <div class="wiersz">
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-                <div class="kol"></div>
-            </div>
-            <div class="gracz">
-                <div class="pionek czarny a n1"></div>
-                <div class="pionek b n2"></div>
-                <div class="pionek b n7"></div>
-                <div class="kon h n8"></div>
-                <div class="kon czarny d n3"></div>
-            </div>
+           
         </div>
+        
+        <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function($scope) {
+            
+         $scope.Nag = "Szachy";   
+         
+         $scope.kolumny = ["a","b","c","d","e","f","g","h"];
+         $scope.wiersze = ["1","2","3","4","5","6","7","8"];
+         
+         $scope.klasa_pionki = function(pionek, kolor)
+         {
+             //kon czarny b n1
+             return pionek.co + " " + kolor + " " + pionek.wiersz + " " + pionek.kolumna  ;
+         }
+         
+         
+         $scope.pionki = {
+             gracz1: [
+                 {co:"goniec", wiersz:"c", kolumna: "n8"},
+                 {co:"goniec", wiersz:"f", kolumna: "n8"}
+             ],
+             gracz2: [
+                   {co:"goniec", wiersz:"f", kolumna: "n1"}
+           ]
+         }
+        
+        });
+        </script>
     </body>
 </html>
