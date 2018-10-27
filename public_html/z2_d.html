@@ -9,6 +9,7 @@ and open the template in the editor.
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
         <style>
             #szachy {
                 position: relative;
@@ -88,7 +89,11 @@ and open the template in the editor.
         </style>
 
     </head>
-    <body>
+    <body ng-app="myApp" ng-controller="myCtrl">
+        
+        <h1>{{Nag}}</h1>
+        
+        
         <div id="szachy">
             <div class="wiersz">
                 <div></div>
@@ -207,5 +212,16 @@ and open the template in the editor.
             </div>
            
         </div>
+        
+        <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function($scope) {
+            
+            $scope.Nag = "Szachy";
+    
+    
+        });
+        </script>        
+        
     </body>
 </html>
