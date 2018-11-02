@@ -92,44 +92,12 @@ and open the template in the editor.
     <body>
         <div id="szachy"  ng-app="myApp" ng-controller="myCtrl">
             <div class="wiersz" ng-repeat="wiersz in wiersze">
-                <div  ng-repeat="kolumna in kolumny" ng-click="klikamTu(wiersz,kolumna)" >{{wiersz}} {{kolumna}} </div>
+                <div  ng-repeat="kolumna in kolumny" ng-click="klikamTu(wiersz,kolumna)" ></div>
             </div>
            
             <div class="pionki">
-                <span ng-class="skok('kon czarny')"></span>
-                
-                
-                <span class="kon czarny g n1"></span>
-                <span class="wieza czarny a n1"></span>
-                <span class="wieza czarny h n1"></span>
-                <span class="goniec czarny c n1"></span>
-                <span class="goniec czarny f n1"></span>
-                <span class="krol czarny d n1"></span>
-                <span class="krolowa czarny e n1"></span>
-                <span class="pionek czarny a n2"></span>
-                <span class="pionek czarny b n2"></span>
-                <span class="pionek czarny c n2"></span>
-                <span class="pionek czarny d n2"></span>
-                <span class="pionek czarny e n2"></span>
-                <span class="pionek czarny f n2"></span>
-                <span class="pionek czarny g n2"></span>
-                <span class="pionek czarny h n2"></span>
-                <span class="pionek  a n7"></span>
-                <span class="pionek  b n7"></span>
-                <span class="pionek  c n7"></span>
-                <span class="pionek  d n7"></span>
-                <span class="pionek  e n7"></span>
-                <span class="pionek  f n7"></span>
-                <span class="pionek  g n7"></span>
-                <span class="pionek  h n7"></span>
-                <span class="kon  b n8"></span>
-                <span class="kon  g n8"></span>
-                <span class="wieza  a n8"></span>
-                <span class="wieza  h n8"></span>
-                <span class="goniec  c n8"></span>
-                <span class="goniec  f n8"></span>
-                <span class="krol  d n8"></span>
-                <span class="krolowa  e n8"></span>
+                <span ng-repeat="pionek in gra.gracz1" ng-click="klikamWPionka(pionek)" ng-class="klasa_pionek(pionek, '')"></span>
+                <span ng-repeat="pionek in gra.gracz2" ng-click="klikamWPionka(pionek)" ng-class="klasa_pionek(pionek, 'czarny')"></span>
             </div>
            
         </div>
@@ -141,15 +109,47 @@ and open the template in the editor.
               $scope.klikamWTo = "b n1 ";  
               $scope.kolumny = ['a','b','c','d','e','f','g','h'];  
               $scope.wiersze = ['n1','n2','n3','n4','n5','n6','n7','n8'];  
+              $scope.AktywnyPionek = null;
               
-              $scope.skok = function(CoTo)
+              
+              $scope.klikamWPionka = function(pionek)
               {
-                  return $scope.klikamWTo + CoTo;
+                 $scope.AktywnyPionek = pionek; 
               }
+              
+              $scope.klasa_pionek = function(objPionka, kolor)
+              {
+                  // pionek czarny n1 c
+                  // pionekczarnyn1c
+                  return objPionka.figure + " " + kolor + " " + objPionka.wiersz + " " + objPionka.kolumna;
+              }
+              
+              
+              $scope.gra = {
+                  gracz1: [
+                      {figure:"pionek", wiersz:"n1", kolumna:"a"},  
+                      {figure:"pionek", wiersz:"n2", kolumna:"a"},  
+                      {figure:"pionek", wiersz:"n3", kolumna:"b"},  
+                      {figure:"kon", wiersz:"n4", kolumna:"a"},  
+                      {figure:"pionek", wiersz:"n5", kolumna:"a"},  
+                  ],
+                  gracz2: [
+                      {figure:"pionek", wiersz:"n1", kolumna:"c"},  
+                      {figure:"pionek", wiersz:"n2", kolumna:"d"},  
+                      {figure:"pionek", wiersz:"n3", kolumna:"c"},  
+                      {figure:"pionek", wiersz:"n4", kolumna:"d"},  
+                      {figure:"pionek", wiersz:"n5", kolumna:"e"},  
+                      
+                  ]
+              }
+              
+              
+              
               
               $scope.klikamTu = function(wiersz,kolumna)
               {
-                  $scope.klikamWTo = wiersz + " " + kolumna+" ";
+                  $scope.AktywnyPionek.wiersz = wiersz;
+                  $scope.AktywnyPionek.kolumna = kolumna;
               }
 
         });

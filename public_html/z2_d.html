@@ -68,6 +68,10 @@ and open the template in the editor.
             #szachy .pionki span.krol {background-position-x: -2px;}
             #szachy .pionki span.krolowa {background-position-x: -48px;}
             #szachy .pionki span.czarny{background-position-y: -79px;}
+            #szachy .pionki span.cien {
+                box-shadow: 0px 0px 1px antiquewhite;
+            }
+            
             
             #szachy .pionki span.a {left:26px;}
             #szachy .pionki span.b {left:126px;}
@@ -95,89 +99,17 @@ and open the template in the editor.
         
         
         <div id="szachy">
-            <div class="wiersz">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-            <div class="wiersz">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-            <div class="wiersz">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-            <div class="wiersz">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-            <div class="wiersz">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-            <div class="wiersz">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-            <div class="wiersz">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-            <div class="wiersz">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
+            
+            <div class="wiersz"  ng-repeat="wiersz in wiersze">
+                <div ng-repeat="kolumna in kolumny"></div>
             </div>
            
             <div class="pionki">
-                <span class="kon czarny b n1"></span>
+                <span ng-repeat="pionek in gra.gracz1" ng-click="klik_pionka(pionek)" ng-class="klasa_pionek(pionek, 'czarny')"></span>
+                <span ng-repeat="pionek in gra.gracz2" ng-click="klik_pionka(pionek)" ng-class="klasa_pionek(pionek, '')"></span>
+
+                
+                <!--                <span class="kon czarny b n1"></span>
                 <span class="kon czarny g n1"></span>
                 <span class="wieza czarny a n1"></span>
                 <span class="wieza czarny h n1"></span>
@@ -208,7 +140,7 @@ and open the template in the editor.
                 <span class="goniec  c n8"></span>
                 <span class="goniec  f n8"></span>
                 <span class="krol  d n8"></span>
-                <span class="krolowa  e n8"></span>
+                <span class="krolowa  e n8"></span>-->
             </div>
            
         </div>
@@ -218,6 +150,49 @@ and open the template in the editor.
         app.controller('myCtrl', function($scope) {
             
             $scope.Nag = "Szachy";
+            
+            $scope.kolumny = ["a","b","c","d","e","f","g","h"];
+            $scope.wiersze = ["1","2","3","4","5","6","7","8"];
+            $scope.aktywnypionek = null;
+            
+            $scope.klasa_pionek = function(pionek, kolor)
+            {
+                var zaznaczone = "";
+                
+                if(pionek ==  $scope.aktywnypionek)
+                    zaznaczone = "cien";
+                // kon czarny a n3
+                return pionek.figurka + " " + kolor + " " + pionek.wiersz + " " + pionek.kolumna + " " + zaznaczone;  
+            }
+            
+            $scope.klik_pionka = function(pionek)
+            {
+                $scope.aktywnypionek = pionek;    
+            }
+            
+    
+            $scope.gra = {
+                gracz1: [
+                    {figurka:"pionek", wiersz:"n1", kolumna: "a"},
+                    {figurka:"pionek", wiersz:"n2", kolumna: "b"},
+                    {figurka:"pionek", wiersz:"n1", kolumna: "c"},
+                    {figurka:"pionek", wiersz:"n2", kolumna: "d"},
+                    {figurka:"pionek", wiersz:"n1", kolumna: "e"},
+                    {figurka:"pionek", wiersz:"n2", kolumna: "f"},
+                    {figurka:"pionek", wiersz:"n1", kolumna: "g"},
+                    {figurka:"pionek", wiersz:"n2", kolumna: "h"}
+                ],
+                gracz2: [
+                    {figurka:"pionek", wiersz:"n7", kolumna: "a"},
+                    {figurka:"pionek", wiersz:"n8", kolumna: "b"},
+                    {figurka:"pionek", wiersz:"n7", kolumna: "c"},
+                    {figurka:"pionek", wiersz:"n8", kolumna: "d"},
+                    {figurka:"pionek", wiersz:"n7", kolumna: "e"},
+                    {figurka:"pionek", wiersz:"n8", kolumna: "f"},
+                    {figurka:"pionek", wiersz:"n7", kolumna: "g"},
+                    {figurka:"pionek", wiersz:"n8", kolumna: "h"}
+                ]
+            };
     
     
         });
