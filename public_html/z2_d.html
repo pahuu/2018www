@@ -97,11 +97,14 @@ and open the template in the editor.
         
         <h1>{{Nag}}</h1>
         
-        
+        <div class="info">
+            <p>Ruch ma gracz: {{ gracz?"Biały":"Czarny" }}</p>
+            <p>Komunikat: {{ komunikat }}</p>
+        </div>
         <div id="szachy">
             
-            <div class="wiersz"  ng-repeat="wiersz in wiersze">
-                <div ng-repeat="kolumna in kolumny"></div>
+            <div class="wiersz"  ng-repeat="(windex, wiersz) in wiersze">
+                <div ng-repeat="(kindex, kolumna) in kolumny" ng-click="klikpola(windex, kindex)"></div>
             </div>
            
             <div class="pionki">
@@ -154,6 +157,7 @@ and open the template in the editor.
             $scope.kolumny = ["a","b","c","d","e","f","g","h"];
             $scope.wiersze = ["1","2","3","4","5","6","7","8"];
             $scope.aktywnypionek = null;
+            $scope.gracz = true; // true=>bialy false=>czarny
             
             $scope.klasa_pionek = function(pionek, kolor)
             {
@@ -162,39 +166,98 @@ and open the template in the editor.
                 if(pionek ==  $scope.aktywnypionek)
                     zaznaczone = "cien";
                 // kon czarny a n3
-                return pionek.figurka + " " + kolor + " " + pionek.wiersz + " " + pionek.kolumna + " " + zaznaczone;  
+                return pionek.figurka + " " + kolor + " n" + $scope.wiersze[pionek.wiersz] + " " + $scope.kolumny[pionek.kolumna] + " " + zaznaczone;  
             }
             
+            $scope.ustaw_komunikat= function(){
+                if($scope.aktywnypionek == null)
+                    $scope.komunikat = "Wybierz pionka";
+                else
+                    $scope.komunikat = "kliknij w pole docelowe";
+                    
+                
+            }
+            
+            $scope.sprawdzPolaCzySaPuste = function(tablica, gracz)
+            {
+                /*
+                 * [0:{wiersz:0, kolumna:0},1:{wiersz:1, kolumna:0}]
+                 */
+                
+                var res = true;
+                angular.forEach(tablica, function(element, indeks){
+                    
+                    if(!((element.wiersz >=0 && element.wiersz <8) &&
+                            (element.kolumna >=0 && element.kolumna <8)))
+                                    res = false;
+                    
+                    angular.forEach(gracz, function(pionek,ipionek){
+                        if(pionek.kolumna  == element.kolumna &&
+                           pionek.wiersz  == element.wiersz)
+                           res = false;
+                    });
+                });
+                
+                return res;
+            }
+            
+            
+            $scope.klikpola = function(wiersz, kolumna)
+                {
+                    if($scope.aktywnypionek != null)
+                    {
+                        
+                        $scope.aktywnypionek.kolumna = kolumna;
+                        $scope.aktywnypionek.wiersz = wiersz;
+                        
+                        /*
+                         * po wyk. ruchu zmieniamy gracza
+                         */
+                        $scope.gracz = !$scope.gracz;
+                        
+                        $scope.aktywnypionek = null;
+
+                      }
+                    
+                    $scope.ustaw_komunikat();
+
+                }
+                
             $scope.klik_pionka = function(pionek)
             {
-                $scope.aktywnypionek = pionek;    
+                if(pionek.gracz == $scope.gracz)
+                {
+                    $scope.aktywnypionek = pionek;
+                }
+                
+                $scope.ustaw_komunikat();
             }
             
     
             $scope.gra = {
                 gracz1: [
-                    {figurka:"pionek", wiersz:"n1", kolumna: "a"},
-                    {figurka:"pionek", wiersz:"n2", kolumna: "b"},
-                    {figurka:"pionek", wiersz:"n1", kolumna: "c"},
-                    {figurka:"pionek", wiersz:"n2", kolumna: "d"},
-                    {figurka:"pionek", wiersz:"n1", kolumna: "e"},
-                    {figurka:"pionek", wiersz:"n2", kolumna: "f"},
-                    {figurka:"pionek", wiersz:"n1", kolumna: "g"},
-                    {figurka:"pionek", wiersz:"n2", kolumna: "h"}
+                    {figurka:"pionek", wiersz:0, gracz:false, kolumna: 0},
+                    {figurka:"pionek", wiersz:1, gracz:false, kolumna: 1},
+                    {figurka:"pionek", wiersz:0, gracz:false, kolumna: 2},
+                    {figurka:"pionek", wiersz:1, gracz:false, kolumna: 3},
+                    {figurka:"pionek", wiersz:0, gracz:false, kolumna: 4},
+                    {figurka:"pionek", wiersz:1, gracz:false, kolumna: 5},
+                    {figurka:"pionek", wiersz:0, gracz:false, kolumna: 6},
+                    {figurka:"pionek", wiersz:1, gracz:false, kolumna: 7}
                 ],
                 gracz2: [
-                    {figurka:"pionek", wiersz:"n7", kolumna: "a"},
-                    {figurka:"pionek", wiersz:"n8", kolumna: "b"},
-                    {figurka:"pionek", wiersz:"n7", kolumna: "c"},
-                    {figurka:"pionek", wiersz:"n8", kolumna: "d"},
-                    {figurka:"pionek", wiersz:"n7", kolumna: "e"},
-                    {figurka:"pionek", wiersz:"n8", kolumna: "f"},
-                    {figurka:"pionek", wiersz:"n7", kolumna: "g"},
-                    {figurka:"pionek", wiersz:"n8", kolumna: "h"}
+                    {figurka:"pionek", wiersz:6, gracz:true, kolumna: 0},
+                    {figurka:"pionek", wiersz:7, gracz:true, kolumna: 1},
+                    {figurka:"pionek", wiersz:6, gracz:true, kolumna: 2},
+                    {figurka:"pionek", wiersz:7, gracz:true, kolumna: 3},
+                    {figurka:"pionek", wiersz:6, gracz:true, kolumna: 4},
+                    {figurka:"pionek", wiersz:7, gracz:true, kolumna: 5},
+                    {figurka:"pionek", wiersz:6, gracz:true, kolumna: 6},
+                    {figurka:"pionek", wiersz:7, gracz:true, kolumna: 7}
                 ]
             };
     
-    
+            $scope.ustaw_komunikat();
         });
         </script>        
         
