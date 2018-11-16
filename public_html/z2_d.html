@@ -158,6 +158,8 @@ and open the template in the editor.
             $scope.wiersze = ["1","2","3","4","5","6","7","8"];
             $scope.aktywnypionek = null;
             $scope.gracz = true; // true=>bialy false=>czarny
+            $scope.tablicaPol = []; //tablica
+            
             
             $scope.klasa_pionek = function(pionek, kolor)
             {
@@ -178,9 +180,56 @@ and open the template in the editor.
                 
             }
             
+            $scope.szukajPionka = (wiersz, kolumna) =>
+            {
+                var res = null;
+                angular.forEach($scope.gra.gracz1, function(pionek, indexPionka){
+                    if(pionek.wiersz == wiersz && pionek.kolumna == kolumna)
+                        res = pionek;
+                });
+                
+                if(res!=null) return res;
+                
+                angular.forEach($scope.gra.gracz2, function(pionek, indexPionka){
+                    if(pionek.wiersz == wiersz && pionek.kolumna == kolumna)
+                        res = pionek;
+                });
+                
+                return res;
+            }
+            
+            $scope.sprawdzPolaDoRuchu = function(pionek)
+            {
+                /*{wiersz:0, kolumna:0}
+                 * [0:{wiersz:0, kolumna:0},1:{wiersz:1, kolumna:0}]
+                 */
+                // sprawdzany wiersz
+                var res = [];
+                var wiersz = pionek.gracz ? pionek.wiersz-1 : pionek.wiersz+1;
+                var kolumna1 = pionek.kolumna-1;
+                var kolumna2 = pionek.kolumna+1;
+                var gracz = !pionek.gracz ? $scope.gra.gracz1 : $scope.gra.gracz2;
+                
+                var kolumna1status = false; // zakladamy ze pole sa zajete
+                if(kolumna1 >= 0)
+                {
+                    if($scope.szukajPionka(wiersz, kolumna1) == null)
+                       res.push({wiersz:wiersz, kolumna:kolumna1}) 
+                    
+                }
+                
+                if(kolumna2 < 8)
+                {
+                    if($scope.szukajPionka(wiersz, kolumna1) == null)
+                       res.push({wiersz:wiersz, kolumna:kolumna2}) 
+                }
+                
+               return res; 
+            }
+            
             $scope.sprawdzPolaCzySaPuste = function(tablica, gracz)
             {
-                /*
+                /*{wiersz:0, kolumna:0}
                  * [0:{wiersz:0, kolumna:0},1:{wiersz:1, kolumna:0}]
                  */
                 
@@ -204,7 +253,14 @@ and open the template in the editor.
             
             $scope.klikpola = function(wiersz, kolumna)
                 {
-                    if($scope.aktywnypionek != null)
+                    
+                    var krokOK = false;
+                    angular.forEach($scope.tablicaPol, function(pole, idx) {
+                        if(pole.wiersz == wiersz && pole.kolumna == kolumna)
+                            krokOK = true;
+                    } );
+                    
+                    if($scope.aktywnypionek != null && krokOK)
                     {
                         
                         $scope.aktywnypionek.kolumna = kolumna;
@@ -227,7 +283,10 @@ and open the template in the editor.
             {
                 if(pionek.gracz == $scope.gracz)
                 {
+                    $scope.tablicaPol = [];
                     $scope.aktywnypionek = pionek;
+                    $scope.tablicaPol = $scope.sprawdzPolaDoRuchu(pionek);
+                    
                 }
                 
                 $scope.ustaw_komunikat();

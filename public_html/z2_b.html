@@ -197,15 +197,21 @@
             $scope.badanyWiersz = 0
             $scope.badanaKolumna1 = 0
             $scope.badanaKolumna2 = 0
+            $scope.dostepnePozycje = [];
             
 
             
             $scope.pionekklik = function(pionek)
             {
-                console.log(pionek);
+                $scope.dostepnePozycje = [];
                 $scope.aktywnypionek = pionek;
                 
-                $scope.czyWybranyPionekJestOK()
+                $scope.czyWybranyPionekJestOK();
+                
+                if($scope.dostepnePozycje.length == 0)
+                    $scope.aktywnypionek = null;
+                
+                console.log($scope.dostepnePozycje);
                 
                 if($scope.aktywnypionek != null)
                     $scope.komunikat = "Wykonaj ruch";
@@ -232,11 +238,12 @@
                          * czy pionka nie pprzedza nasz inny pionek
                          *   */
                         $scope.badanyWiersz = $scope.aktywnypionek.gracz ?
-                                    $scope.aktywnypionek.wiersz-1:$scope.aktywnypionek.wiersz+1; // badana linia
+                                    $scope.aktywnypionek.wiersz+1:$scope.aktywnypionek.wiersz-1; // badana linia
                         
                         $scope.badanaKolumna1 = $scope.aktywnypionek.kolumna-1
                         $scope.badanaKolumna2 = $scope.aktywnypionek.kolumna+1; 
                         
+                            console.log([$scope.badanyWiersz])
                         /* badamy ekstrema */
                         if($scope.badanyWiersz >=0 && $scope.badanyWiersz < 8)
                         {
@@ -245,6 +252,8 @@
                             
                             if( !($scope.badanaKolumna2 >=0 && $scope.badanaKolumna2 < 8))
                                 $scope.badanaKolumna2 = -1;
+                            
+                            console.log([$scope.badanaKolumna1, $scope.badanaKolumna, $scope.badanyWiersz])
                             
                             /* sprawdzam czy kolumna 1 jest zajeta */
                             var kol1Zajeta = true;
@@ -256,6 +265,9 @@
                                                     $scope.badanaKolumna1,
                                                     $scope.aktywnypionek.gracz ? $scope.pionki.czarne : $scope.pionki.biale    
                                 );
+                                if(!kol1Zajeta)
+                                 $scope.dostepnePozycje.push([$scope.badanyWiersz, $scope.badanaKolumna1]); 
+                                    
                             }   
                 
                             /* sprawdzam czy kolumna 2 jest zajeta */
@@ -268,9 +280,13 @@
                                                     $scope.badanaKolumna2,
                                                     $scope.aktywnypionek.gracz ? $scope.pionki.czarne : $scope.pionki.biale    
                                 );
+                                if(!kol2Zajeta)
+                                    $scope.dostepnePozycje.push([$scope.badanyWiersz, $scope.badanaKolumna2]); 
                             }   
                             
                             
+                            
+                            console.log([kol1Zajeta, kol2Zajeta]);
                 
                         }
 
@@ -278,7 +294,24 @@
                         
                             
                 }
-            }        
+            } 
+            
+            /* czy mamy ruch */
+            $scope.fweryfikacji = function(pionek)
+            {
+              var res  = []; 
+              var wiersz = pionek.wiersz - 1
+              
+                if(pionek.gracz)
+                {
+                    wiersz = pionek.wiersz + 1;
+                }
+                
+                
+                    var kolumna1 = pionek.kolumna-1;
+                    var kolumna1 = pionek.kolumna+1;
+              
+            }
         
             $scope.czyPoleJestZajete = function(wiersz, kolumna, pionkiGracza)
             {
@@ -289,13 +322,24 @@
                         pionekWPolu = pionek;
                 });
                 
+                console.log('-----------');
+                console.log(pionekWPolu);
+                
                 return pionekWPolu != null;
             }
          
             $scope.wierszkolumna = function(wiersz, kolumna)
             {
-                if($scope.aktywnypionek != null)
+                var ruchOk = false;
+                angular.forEach($scope.dostepnePozycje, function(item, key){
+                   if(item[0]== wiersz && item[1]==kolumna) 
+                       ruchOk=true;
+                });
+                
+                if($scope.aktywnypionek != null 
+                        &&  ruchOk )
                 {
+                    
                     $scope.aktywnypionek.wiersz = wiersz;
                     $scope.aktywnypionek.kolumna = kolumna;
                     
