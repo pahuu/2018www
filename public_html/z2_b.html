@@ -220,6 +220,38 @@
                 
             }
 
+            /**
+             * 
+             * funkcja sprawdzenia jaki pionek stoi na polu x, y
+             * @return pionek
+             */
+
+             $scope.CzyNaPoluJestPionek = (wiersz, kolumna) =>
+             {
+                var pionekWPolu = null;
+                angular.forEach($scope.pionki, function(pionkiGracza, key){
+                    angular.forEach(pionkiGracza, function(pionek, indexPionka){
+                        if(wiersz == pionek.wiersz && kolumna == pionek.kolumna)
+                            pionekWPolu = pionek;
+                    });
+                 });
+                 
+                 console.log(pionekWPolu);
+                 return pionekWPolu;
+             }
+             /*
+              * funkcja Sprawdzenia czy jest bicie
+              */
+            $scope.sprawdzCzyJestBicie =  (wiersz, kolumna) =>
+            {
+               if(wiersz >=0 && wiersz < 8 && kolumna >=0 && kolumna < 8)
+                    {
+                      var res = $scope.CzyNaPoluJestPionek(wiersz, kolumna);
+                      return res==null;
+                    }
+                return false;    
+            }
+
             /* Funkcja sprawdza czy wybrany pionek jest poprawnie wybrany 
              * 
              * */
@@ -240,6 +272,10 @@
                         $scope.badanyWiersz = $scope.aktywnypionek.gracz ?
                                     $scope.aktywnypionek.wiersz+1:$scope.aktywnypionek.wiersz-1; // badana linia
                         
+                        var res = null; 
+                        var badanyWiersz = $scope.aktywnypionek.gracz ?
+                                    $scope.aktywnypionek.wiersz+2:$scope.aktywnypionek.wiersz-2; // badana linia dla bicia
+                        
                         $scope.badanaKolumna1 = $scope.aktywnypionek.kolumna-1
                         $scope.badanaKolumna2 = $scope.aktywnypionek.kolumna+1; 
                         
@@ -257,17 +293,23 @@
                             
                             /* sprawdzam czy kolumna 1 jest zajeta */
                             var kol1Zajeta = true;
+
                             if($scope.badanaKolumna1 > -1)
                             {
                                         
-                               kol1Zajeta = $scope.czyPoleJestZajete(
+                               kol1Zajeta = $scope.CzyNaPoluJestPionek(
                                                     $scope.badanyWiersz,
-                                                    $scope.badanaKolumna1,
-                                                    $scope.aktywnypionek.gracz ? $scope.pionki.czarne : $scope.pionki.biale    
-                                );
-                                if(!kol1Zajeta)
+                                                    $scope.badanaKolumna1);// -1
+
+                            if(!kol1Zajeta)
                                  $scope.dostepnePozycje.push([$scope.badanyWiersz, $scope.badanaKolumna1]); 
-                                    
+                            else
+                              if(kol1Zajeta.gracz != $scope.aktywnypionek.gracz)
+                                {
+                                    res = $scope.sprawdzCzyJestBicie(badanyWiersz, $scope.badanaKolumna1-1)
+                                    if(res)
+                                        $scope.dostepnePozycje.push([badanyWiersz, $scope.badanaKolumna1-1]); 
+                                }
                             }   
                 
                             /* sprawdzam czy kolumna 2 jest zajeta */
@@ -275,14 +317,20 @@
                             if($scope.badanaKolumna2 > -1)
                             {
                                         
-                               kol2Zajeta = $scope.czyPoleJestZajete(
+                               kol2Zajeta = $scope.CzyNaPoluJestPionek(
                                                     $scope.badanyWiersz,
-                                                    $scope.badanaKolumna2,
-                                                    $scope.aktywnypionek.gracz ? $scope.pionki.czarne : $scope.pionki.biale    
+                                                    $scope.badanaKolumna2 //+1  
                                 );
                                 if(!kol2Zajeta)
                                     $scope.dostepnePozycje.push([$scope.badanyWiersz, $scope.badanaKolumna2]); 
-                            }   
+                                else
+                                  if(kol2Zajeta.gracz != $scope.aktywnypionek.gracz)
+                                    {
+                                        res = $scope.sprawdzCzyJestBicie(badanyWiersz, $scope.badanaKolumna2+1)
+                                    if(res)
+                                        $scope.dostepnePozycje.push([badanyWiersz, $scope.badanaKolumna2+1]); 
+                                    }
+                                }   
                             
                             
                             
@@ -313,27 +361,15 @@
               
             }
         
-            $scope.czyPoleJestZajete = function(wiersz, kolumna, pionkiGracza)
-            {
-                var pionekWPolu = null;
-                
-                angular.forEach(pionkiGracza, function(pionek, indexPionka){
-                    if(wiersz == pionek.wiersz && kolumna == pionek.kolumna)
-                        pionekWPolu = pionek;
-                });
-                
-                console.log('-----------');
-                console.log(pionekWPolu);
-                
-                return pionekWPolu != null;
-            }
-         
             $scope.wierszkolumna = function(wiersz, kolumna)
             {
                 var ruchOk = false;
                 angular.forEach($scope.dostepnePozycje, function(item, key){
-                   if(item[0]== wiersz && item[1]==kolumna) 
+                   if(item[0]== wiersz && item[1]==kolumna)
+                   {
+                       console.log(parseInt((wiersz + $scope.aktywnypionek.wiersz) / 2)) 
                        ruchOk=true;
+                   }
                 });
                 
                 if($scope.aktywnypionek != null 
