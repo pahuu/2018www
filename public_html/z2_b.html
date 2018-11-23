@@ -372,17 +372,80 @@
                    }
                 });
                 
+                
+                
                 if($scope.aktywnypionek != null 
                         &&  ruchOk )
                 {
                     
+                    var wierszPionkaBitego = ($scope.aktywnypionek.wiersz + wiersz) / 2;
+                    var kolumnaPionkaBitego = ($scope.aktywnypionek.kolumna + kolumna)/2;
+                    var czyByloBicie = false;
+                    
+                    
+                    if(parseInt(wierszPionkaBitego) == wierszPionkaBitego && parseInt(kolumnaPionkaBitego)  == kolumnaPionkaBitego )
+                        {
+                            
+                            angular.forEach($scope.pionki, function(pionkiGracza, key){
+                               angular.forEach(pionkiGracza, function(pionek, indexPionka){
+                                   if(wierszPionkaBitego == pionek.wiersz && kolumnaPionkaBitego == pionek.kolumna)
+                                      pionkiGracza.splice(indexPionka, 1);
+                                      czyByloBicie = true;
+                               });
+                            });
+       
+                         }
+                    
                     $scope.aktywnypionek.wiersz = wiersz;
                     $scope.aktywnypionek.kolumna = kolumna;
                     
-                    $scope.Obecnie_gra = $scope.Obecnie_gra?0:1;
-                    
-                    $scope.pionekklik(null);
+                    // weryfikacja czy nasz pionek ma bicie
+                    if(czyByloBicie && $scope.sprawdzCzyPionekMaKolejneBicie(wiersz, kolumna))
+                    {
+                        ///
+                    } 
+                    else {
+                        ///
+                        $scope.Obecnie_gra = $scope.Obecnie_gra?0:1;
+                        $scope.pionekklik(null);
+                    } 
                 }
+            }
+            
+            extr = (x) => x>=0 && x < 8; 
+            
+            weryfikujPoleDoBicia = (wiersz, kolumna, wierszP, kolumnaP) =>
+            {
+                return extr(wiersz + wierszP) &&  extr(wiersz + wierszP + wierszP) && extr(kolumna + kolumnaP) &&  extr(kolumna + kolumnaP + kolumnaP) 
+                   && $scope.CzyNaPoluJestPionek(wiersz + wierszP + wierszP, kolumna + kolumnaP + kolumnaP) == null 
+                   && (
+                   $scope.CzyNaPoluJestPionek(wiersz + wierszP, kolumna + kolumnaP) != null 
+                   && $scope.CzyNaPoluJestPionek(wiersz + wierszP, kolumna + kolumnaP).gracz != 
+                   $scope.aktywnypionek.gracz
+                   )
+            }
+            
+            
+            
+            /**
+             *  czy pionek ma bicie
+             * 
+             */
+            $scope.sprawdzCzyPionekMaKolejneBicie = (wiersz, kolumna) =>
+            {
+               $scope.dostepnePozycje = []; 
+                
+               var pole1 = weryfikujPoleDoBicia(wiersz, kolumna, 1, 1);
+               var pole2 = weryfikujPoleDoBicia(wiersz, kolumna, -1, 1);
+               var pole3 = weryfikujPoleDoBicia(wiersz, kolumna, 1, -1);
+               var pole4 = weryfikujPoleDoBicia(wiersz, kolumna, -1, -1);
+               if(pole1) $scope.dostepnePozycje.push([wiersz+2, kolumna+2]);
+               if(pole2) $scope.dostepnePozycje.push([wiersz-2, kolumna+2]);
+               if(pole3) $scope.dostepnePozycje.push([wiersz+2, kolumna-2]);
+               if(pole4) $scope.dostepnePozycje.push([wiersz-2, kolumna-2]);
+                
+                
+                return (pole1 || pole2 || pole3 || pole4); 
             }
             
             //pionek czarny a n3
