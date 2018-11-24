@@ -204,6 +204,21 @@ and open the template in the editor.
                 return res;
             }
             
+            /**
+             * funkcja sprawdzenia ekstremum
+             */
+            extr = (wart) => wart>=0 && wart < 8;
+            
+            weryfikacjaCzyMamyBicie = (wiersz, kolumna, wierszP, kolumnaP) =>
+                    {
+                        return extr(wiersz + wierszP) && extr(wiersz + wierszP + wierszP) &&
+                               extr(kolumna + kolumnaP) && extr(kolumna + kolumnaP + kolumnaP) &&
+                               (
+                               $scope.szukajPionka(wiersz + wierszP, kolumna + kolumnaP) != null &&
+                               $scope.szukajPionka(wiersz + wierszP, kolumna + kolumnaP).gracz != $scope.aktywnypionek.gracz
+                               ) && $scope.szukajPionka(wiersz + wierszP + wierszP, kolumna + kolumnaP + kolumnaP) == null;
+                    }
+        
             $scope.wyliczPoleBicia = (naszPionek, pionekPrzeciwnika) =>
                     {
                         var wiersz = naszPionek.wiersz - pionekPrzeciwnika.wiersz > 0 ? pionekPrzeciwnika.wiersz+1 : pionekPrzeciwnika.wiersz -1;    
@@ -235,9 +250,10 @@ and open the template in the editor.
                     if(pionek1 == null)
                        res.push({wiersz:wiersz, kolumna:kolumna1}) 
                     else
-                       if(pionek1.gracz != pionek.gracz)
+                       if(weryfikacjaCzyMamyBicie(pionek.wiersz,pionek.kolumna, pionek.gracz?-1:1 ,-1))
                         {
-//                            var kolumnaBicia =  pionek1.kolumna-pionek.kolumna
+                                console.log("ok2");
+                               res.push({wiersz:pionek.wiersz+ (pionek.gracz?-2:2), kolumna:kolumna1-1}) 
                         }
                        
                 }
@@ -250,14 +266,24 @@ and open the template in the editor.
                     
                     if(pionek2 == null)
                        res.push({wiersz:wiersz, kolumna:kolumna2}) 
+                   else
+                     if(weryfikacjaCzyMamyBicie(pionek.wiersz,pionek.kolumna, pionek.gracz?-1:1 ,1))
+                        {
+                                console.log("ok1");
+                               res.push({wiersz:pionek.wiersz+(pionek.gracz?-2:2), kolumna:kolumna2+1}) 
+                        }
+
                 }
                 
                 
                 
-//                console.log()
+                console.log(res);
                 
                return res; 
             }
+            
+            
+            
             
             $scope.sprawdzPolaCzySaPuste = function(tablica, gracz)
             {
@@ -283,6 +309,9 @@ and open the template in the editor.
             }
             
             
+            poleSr = (wart, wart1) => (wart+wart1)/2;
+            poleTest = (wart, wart1) => parseInt(poleSr(wart, wart1)) == poleSr(wart, wart1); 
+            
             $scope.klikpola = function(wiersz, kolumna)
                 {
                     
@@ -294,6 +323,23 @@ and open the template in the editor.
                     
                     if($scope.aktywnypionek != null && krokOK)
                     {
+                        
+                        
+                        if(poleTest($scope.aktywnypionek.kolumna, kolumna) && poleTest($scope.aktywnypionek.wiersz, wiersz))
+                        {
+                            var wierszPionka = poleSr($scope.aktywnypionek.wiersz, wiersz);  
+                            var kolumnaPionka = poleSr($scope.aktywnypionek.kolumna, kolumna);  
+                            angular.forEach($scope.gra, function(gracz, indeksGracza){
+                                angular.forEach(gracz, function(pionek, indeks){
+                                    if(pionek.wiersz == wierszPionka && pionek.kolumna==kolumnaPionka)
+                                        gracz.splice(indeks,1);
+                                });
+                                
+                            });
+                            
+                        }
+                        
+                        
                         
                         $scope.aktywnypionek.kolumna = kolumna;
                         $scope.aktywnypionek.wiersz = wiersz;
