@@ -150,7 +150,7 @@ and open the template in the editor.
         
         <script>
         var app = angular.module('myApp', []);
-        app.controller('myCtrl', function($scope) {
+        app.controller('myCtrl', function($scope, $http) {
             
             $scope.Nag = "Szachy";
             
@@ -161,15 +161,21 @@ and open the template in the editor.
             $scope.tablicaPol = []; //tablica
             
             
+            
             $scope.klasa_pionek = function(pionek, kolor)
             {
                 var zaznaczone = "";
                 
                 if(pionek ==  $scope.aktywnypionek)
                     zaznaczone = "cien";
+                  
+                
                 // kon czarny a n3
                 return pionek.figurka + " " + kolor + " n" + $scope.wiersze[pionek.wiersz] + " " + $scope.kolumny[pionek.kolumna] + " " + zaznaczone;  
             }
+            
+            
+            
             
             $scope.ustaw_komunikat= function(){
                 if($scope.aktywnypionek == null)
@@ -198,11 +204,19 @@ and open the template in the editor.
                 return res;
             }
             
+            $scope.wyliczPoleBicia = (naszPionek, pionekPrzeciwnika) =>
+                    {
+                        var wiersz = naszPionek.wiersz - pionekPrzeciwnika.wiersz > 0 ? pionekPrzeciwnika.wiersz+1 : pionekPrzeciwnika.wiersz -1;    
+                        var kolumna = naszPionek.kolumna - pionekPrzeciwnika.kolumna > 0 ? pionekPrzeciwnika.kolumna+1 : pionekPrzeciwnika.kolumna -1;    
+                    }
+            
             $scope.sprawdzPolaDoRuchu = function(pionek)
             {
                 /*{wiersz:0, kolumna:0}
                  * [0:{wiersz:0, kolumna:0},1:{wiersz:1, kolumna:0}]
                  */
+                
+                
                 // sprawdzany wiersz
                 var res = [];
                 var wiersz = pionek.gracz ? pionek.wiersz-1 : pionek.wiersz+1;
@@ -211,18 +225,36 @@ and open the template in the editor.
                 var gracz = !pionek.gracz ? $scope.gra.gracz1 : $scope.gra.gracz2;
                 
                 var kolumna1status = false; // zakladamy ze pole sa zajete
+                var pionek1 = null;
+                var pionek2 = null;
+                var pionek3 = null;
+                var pionek4 = null;
+                
                 if(kolumna1 >= 0)
-                {
-                    if($scope.szukajPionka(wiersz, kolumna1) == null)
+                {   pionek1 = $scope.szukajPionka(wiersz, kolumna1);
+                    if(pionek1 == null)
                        res.push({wiersz:wiersz, kolumna:kolumna1}) 
-                    
+                    else
+                       if(pionek1.gracz != pionek.gracz)
+                        {
+//                            var kolumnaBicia =  pionek1.kolumna-pionek.kolumna
+                        }
+                       
                 }
+                
+                
                 
                 if(kolumna2 < 8)
                 {
-                    if($scope.szukajPionka(wiersz, kolumna1) == null)
+                    pionek2 = $scope.szukajPionka(wiersz, kolumna2);
+                    
+                    if(pionek2 == null)
                        res.push({wiersz:wiersz, kolumna:kolumna2}) 
                 }
+                
+                
+                
+//                console.log()
                 
                return res; 
             }
