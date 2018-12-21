@@ -155,8 +155,11 @@
     </head>
     <body ng-app="myApp" ng-controller="myCtrl">
         <div id="info">
+            <p>{{nazwa}}</p>
             <p>Obecnie ma ruch : {{(Obecnie_gra?"Czarny":"Biały")}}</p>
             <p>Komunikat : {{komunikat}}</p>
+            <input ng-model="nazwa" placeholder="Nazwa pokoju">
+            <label>Połącz</label> <input type="checkbox" ng-model="polacz" ng-change="polaczenie()">
         </div>
         <div id="szachy">
             <div class="litery">
@@ -182,13 +185,16 @@
         
         <script>
         var app = angular.module('myApp', []);
-        app.controller('myCtrl', function($scope) {
+        app.controller('myCtrl', function($scope, $http, $interval) {
             $scope.pionki = {
                                 czarne : [],
                                 biale : [],
                             }
             $scope.Obecnie_gra = 0; // 0=> biały 1=> czarny
             $scope.komunikat = "Wybierz pionka";
+            
+            $scope.nazwa = "";
+            $scope.polacz = false;
                             
             $scope.kolumny = ["A","B","C","D","E","F","G","H"]; //  
             $scope.wiersze = ["1","2","3","4","5","6","7","8"]; //  
@@ -198,7 +204,32 @@
             $scope.badanaKolumna1 = 0
             $scope.badanaKolumna2 = 0
             $scope.dostepnePozycje = [];
+            var host = "http://wsi.ovh/pokoj";
             
+            $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+            
+            $scope.polaczenie = () => {
+                
+                
+                $http.get(host+"?nazwa="+$scope.nazwa).then((r)=>{
+                    
+                    console.log(r.data.dane);
+                
+                    if(r.data.nazwa == $scope.nazwa && r.data.dane == "" )
+                    {
+                        var obj = {
+                            nazwa: $scope.nazwa,
+                            dane: {pionki: $scope.pionki}
+                        }
+                        $http({url:host, method:"POST", data:"dane="+JSON.stringify(obj)
+}).then((e)=>{},(e)=>{});
+                    }
+                
+                   console.log(r); 
+                    
+                }, (e)=>{ console.log(e);});
+                
+            }
 
             
             $scope.pionekklik = function(pionek)
