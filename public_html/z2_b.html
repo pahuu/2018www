@@ -176,8 +176,8 @@
                 <div ng-repeat="item in kolumny ">{{item}}</div>
             </div>
             <div class="pionki">
-                <div ng-class="klasa_pionek(pionek, 'czarny')" ng-click="pionekklik(pionek)"  ng-repeat="pionek in pionki.czarne"></div>
-                <div ng-class="klasa_pionek(pionek, '')" ng-click="pionekklik(pionek)" ng-repeat="pionek in pionki.biale"></div>
+                <div ng-class="klasa_pionek(pionek, 'czarny')" ng-click="pionekklik(pionek)"  ng-repeat="pionek in pionki.gracz1"></div>
+                <div ng-class="klasa_pionek(pionek, '')" ng-click="pionekklik(pionek)" ng-repeat="pionek in pionki.gracz2"></div>
             </div>
             <div class="pionki">
             </div>
@@ -210,24 +210,29 @@
             
             $scope.polaczenie = () => {
                 
+                $interval(() => {
                 
                 $http.get(host+"?nazwa="+$scope.nazwa).then((r)=>{
                     
-                    console.log(r.data.dane);
-                
-                    if(r.data.nazwa == $scope.nazwa && r.data.dane == "" )
+                    $scope.pionki = r.data.dane;
+                    
+                /*    console.log(r.data.dane);
+                    
+                    if(r.data.nazwa == $scope.nazwa && (r.data.dane == "" || !r.data.dane))
                     {
                         var obj = {
                             nazwa: $scope.nazwa,
                             dane: {pionki: $scope.pionki}
                         }
-                        $http({url:host, method:"POST", data:"dane="+JSON.stringify(obj)
-}).then((e)=>{},(e)=>{});
+//                        $http({url:host, method:"POST", data:"nazwa="+$scope.nazwa+"&dane="+JSON.stringify(obj)}).then((e)=>{},(e)=>{});
+                        $http({url:host, method:"POST", data:obj}).then((e)=>{},(e)=>{});
                     }
                 
-                   console.log(r); 
+                   console.log(r);*/ 
                     
                 }, (e)=>{ console.log(e);});
+                
+                }, 10000 );
                 
             }
 
@@ -487,7 +492,7 @@
                 return  klasa;
             }
             
-  
+  /*
             for(i=0; i<4; i++)
             {
                 var pionek = {
@@ -516,7 +521,7 @@
                 }
                 $scope.pionki.czarne.push(pionek);
             }
-        
+    */    
             
         });
         </script>
