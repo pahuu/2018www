@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Czat</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+        <style>
+            
+        </style>
+    </head>
+    <body ng-app="myApp" ng-controller="myCtrl">
+        
+        <div>
+            <div ng-repeat="item in czatdata">Name: {{item.name}} <br />
+                {{item.content}}</div>
+        </div>
+        
+        <div>
+            <input ng-model="name">
+            <input ng-model="content">
+            <button ng-click="wyslij()">Wyślij</button>
+        </div>
+        
+        <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function($scope, $http, $interval) {
+            
+            $scope.czatdata = [];
+            $scope.lastid = 0;
+            
+            $scope.wyslij = () => {
+                $http.get('http://wsi.ovh/czat?lastid='+$scope.lastid+'&name='+$scope.name+'&content='+$scope.content).then( (e)=> {
+                    
+                    console.log(e.data);
+            
+                   $scope.czatdata=e.data;
+                   
+                }, (e)=> {} );
+            }
+            
+            $scope.czytajrekord = ()=>{
+                
+                $http.get('http://wsi.ovh/czat?lastid='+$scope.lastid).then( (e)=> {
+                    
+                    console.log(e.data);
+            
+                   $scope.czatdata=e.data;
+                   
+                }, (e)=> {} );
+            }
+            
+            $interval(  $scope.czytajrekord, 1000);
+            $scope.czytajrekord();
+        });
+        </script>
+        
+    </body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Chat grupy B</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <style>
+            .modal {
+                display: block;
+            }
+        </style>
+    </head>
+    <body ng-app="myApp" ng-controller="myCtrl">
+        
+        <div class="container pb-5">
+            <div class="row  pb-4" ng-repeat="mess in message">
+                <div class="col-md-1">{{mess.name}}</div>
+                <div class="col-md">{{mess.content}}</div>
+                <div class="col-md-2">{{mess.created_at}}</div>
+            </div>
+            
+            
+            <nav class="navbar fixed-bottom navbar-light bg-light">
+ <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2"  placeholder="Wiadomosc" aria-label="Wiadomosc" ng-model="content">
+      <button class="btn btn-outline-success my-2 my-sm-0" ng-click="wyslij()" type="submit">Wyslij</button>
+    </form>
+            </nav>
+            
+            
+            <div class="modal" ng-show="sendname=='' || !sendname" tabindex="-1" role="dialog">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                      <label for="#name">Podaj swoje imie</label>
+                    <input ng-model="$myStorage.name" id="name" class="form-control" />
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-click="sendname=$myStorage.name">OK</button>
+                  </div>
+                </div>
+              </div>
+            </div>            
+            
+            
+            
+        </div>
+        
+        
+        
+        
+        <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function($scope, $http, $interval) {
+        $scope.lastid = 0;
+        $scope.message = [];
+        $scope.name="";
+        $scope.$myStorage = window.localStorage;
+        
+        
+        $scope.sendname=$scope.$myStorage.name;
+
+        $scope.wyslij = () => {
+            
+            console.log($scope.sendname);
+            if($scope.content != '' && $scope.sendname != "")
+            {
+                $http.get('http://wsi.ovh/czat?lastid='+($scope.lastid)+'&name='
+                        +$scope.sendname+'&content='+$scope.content )
+                        .then((e)=>{},(e)=>{});
+                $scope.content='';
+            }
+            
+        }
+
+
+        $scope.czytajDane = () => {
+            
+            $http.get('http://wsi.ovh/czat?lastid='+ $scope.lastid).then((e)=>{
+                // odczyt ok, dane sa w e.data
+                
+                angular.forEach(e.data, (item, key) => {
+                    $scope.message.push(item);
+                    if($scope.lastid <= item.id)
+                            $scope.lastid = item.id+1;
+                });
+                
+                console.log(e);
+            },(e)=>{
+                // jezeli jest blad        
+            });
+            
+        }
+
+        $interval($scope.czytajDane, 1000);
+        
+        $scope.czytajDane();
+        });
+        </script>
+        
+    </body>
+</html>
