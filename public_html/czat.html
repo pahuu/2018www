@@ -5,19 +5,29 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
         <style>
+            #okno {
+                height: 80vh;
+                overflow-y: scroll;
+            }
             
         </style>
     </head>
     <body ng-app="myApp" ng-controller="myCtrl">
         
-        <div>
+        <div id="okno">
             <div ng-repeat="item in czatdata">Name: {{item.name}} <br />
                 {{item.content}}</div>
         </div>
         
         <div>
-            <input ng-model="name">
+            <input ng-model="$storage.name">
             <input ng-model="content">
             <button ng-click="wyslij()">Wyślij</button>
         </div>
@@ -26,28 +36,54 @@
         var app = angular.module('myApp', []);
         app.controller('myCtrl', function($scope, $http, $interval) {
             
+            $scope.pytanieDoSerwera = false;
+            $scope.$storage = window.localStorage;
+
             $scope.czatdata = [];
-            $scope.lastid = 0;
+            $scope.$storage.lastid = 0;
             
             $scope.wyslij = () => {
-                $http.get('http://wsi.ovh/czat?lastid='+$scope.lastid+'&name='+$scope.name+'&content='+$scope.content).then( (e)=> {
+                
+                
+                $http.get('http://wsi.ovh/czat?lastid='+$scope.$storage.lastid+'&name='+$scope.$storage.name+'&content='+$scope.content).then( (e)=> {
                     
-                    console.log(e.data);
+                    $scope.content = '';
+                   // console.log(e.data);
             
-                   $scope.czatdata=e.data;
+                  // $scope.czatdata=e.data;
                    
                 }, (e)=> {} );
             }
             
             $scope.czytajrekord = ()=>{
                 
-                $http.get('http://wsi.ovh/czat?lastid='+$scope.lastid).then( (e)=> {
+                if(!$scope.pytanieDoSerwera)
+                {
+                    $scope.pytanieDoSerwera=true; 
+                    $http.get('http://wsi.ovh/czat?lastid='+$scope.$storage.lastid).then( (e)=> {
+
+                         angular.forEach( e.data, (item, key) => {
+
+                                $scope.czatdata.push(item);
+                                if(item.id >= $scope.$storage.lastid)
+                                    $scope.$storage.lastid = item.id + 1;
+                         });
+                         
+                         if(e.data.length>0)
+                         {
+                             setTimeout( () =>{
+                                var okno = document.getElementById("okno");
+                                okno.scrollTop = okno.scrollHeight;
+                             }, 200 );
+                         }
+                         
+                         $scope.pytanieDoSerwera = false;
                     
-                    console.log(e.data);
-            
-                   $scope.czatdata=e.data;
                    
-                }, (e)=> {} );
+                }, (e)=> {
+                         $scope.pytanieDoSerwera = false;
+                } );
+               }
             }
             
             $interval(  $scope.czytajrekord, 1000);
