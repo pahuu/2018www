@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+        <script src="https://code.angularjs.org/1.6.9/angular-sanitize.js"></script>
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <style>
             .modal {
@@ -16,21 +17,17 @@
         
         <div class="container">
             <div class="row">
-                <div class="col-md-12 messages">
+                <div class="col-md-12 messages" id="okno">
                     <div ng-class="i % 2 ==0? 'message message-green':'message message-red'" ng-repeat="(i,mess) in message">
                         <div class="message-name">{{mess.name}}</div>
-                        <div class="message-content">{{mess.content}}</div>
+                        <div class="message-content" ng-bind-html="mess.content"></div>
                         <div class="message-data">{{mess.created_at}}</div>
                     </div>
+                    
+                    <div class="margines"></div>
                 </div>
             </div>
             
-            <nav class="navbar fixed-bottom navbar-light bg-light">
- <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2"  placeholder="Wiadomosc" aria-label="Wiadomosc" ng-model="content">
-      <button class="btn btn-outline-success my-2 my-sm-0" ng-click="wyslij()" type="submit">Wyslij</button>
-    </form>
-            </nav>
             
             
             <div class="modal" ng-show="sendname=='' || !sendname" tabindex="-1" role="dialog">
@@ -57,16 +54,26 @@
             
         </div>
         
+            <nav class="navbar navbar-fixed-bottom ">
+                <div class="container">
+                    <form class="form-inline my-2 my-lg-0">
+                         <input class="form-control mr-sm-2"  placeholder="Wiadomosc" aria-label="Wiadomosc" ng-model="content">
+                         <button class="btn btn-outline-success my-2 my-sm-0" ng-click="wyslij()" type="submit">Wyslij</button>
+                         <button class="btn " ng-click="sendname=''" >Nowy NICK</button>
+                    </form>
+                </div>
+            </nav>
         
         
         
         <script>
-        var app = angular.module('myApp', []);
+        var app = angular.module('myApp', ['ngSanitize']);
         app.controller('myCtrl', function($scope, $http, $interval) {
         $scope.lastid = 0;
         $scope.message = [];
         $scope.name="";
         $scope.$myStorage = window.localStorage;
+        $scope.czytam = false;
         
         
         $scope.sendname=$scope.$myStorage.name;
@@ -80,6 +87,7 @@
                         +$scope.sendname+'&content='+$scope.content )
                         .then((e)=>{},(e)=>{});
                 $scope.content='';
+               $scope.czytam = false;
             }
             
         }
@@ -87,19 +95,34 @@
 
         $scope.czytajDane = () => {
             
+            
+            if(!$scope.czytam)
+            {
+            $scope.czytam = true;
             $http.get('http://wsi.ovh/czat?lastid='+ $scope.lastid).then((e)=>{
                 // odczyt ok, dane sa w e.data
                 
+                var addMess = false;
                 angular.forEach(e.data, (item, key) => {
                     $scope.message.push(item);
                     if($scope.lastid <= item.id)
+                    {
                             $scope.lastid = item.id+1;
+                            addMess = true;
+                        }
                 });
+               $scope.czytam = false;
                 
-                console.log(e);
+               if(addMess) 
+                        setTimeout( () =>{
+                             var okno = document.getElementById("okno");
+                                         okno.scrollTop = okno.scrollHeight;
+                         }, 200 );
             },(e)=>{
+               $scope.czytam = false;
                 // jezeli jest blad        
             });
+        }
             
         }
 

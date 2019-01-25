@@ -3434,7 +3434,14 @@ input[type="reset"].btn-block,
 input[type="button"].btn-block {
   width: 100%;
 }
-.messages .message.message-red {
+.navbar-fi .messages#okno {
+  height: 100vh;
+  overflow-y: scroll;
+}
+.navbar-fi .messages .margines {
+  margin-bottom: 50px;
+}
+.navbar-fi .messages .message.message-red {
   padding: 10px;
   margin-bottom: 15px;
   background-color: #fafac9;
@@ -3443,23 +3450,23 @@ input[type="button"].btn-block {
   box-shadow: 1px 1px 10px #f0f06d;
   position: relative;
 }
-.messages .message.message-red > .message-name {
+.navbar-fi .messages .message.message-red > .message-name {
   top: 10px;
   left: 10px;
   position: absolute;
 }
-.messages .message.message-red > .message-data {
+.navbar-fi .messages .message.message-red > .message-data {
   top: 10px;
   right: 10px;
   position: absolute;
 }
-.messages .message.message-red > .message-content {
+.navbar-fi .messages .message.message-red > .message-content {
   margin-top: 30px;
   text-align: justify;
   font-weight: bold;
   color: #000;
 }
-.messages .message.message-green {
+.navbar-fi .messages .message.message-green {
   padding: 10px;
   margin-bottom: 15px;
   background-color: #c9faf1;
@@ -3468,17 +3475,17 @@ input[type="button"].btn-block {
   box-shadow: 1px 1px 10px #6df0d9;
   position: relative;
 }
-.messages .message.message-green > .message-name {
+.navbar-fi .messages .message.message-green > .message-name {
   top: 10px;
   left: 10px;
   position: absolute;
 }
-.messages .message.message-green > .message-data {
+.navbar-fi .messages .message.message-green > .message-data {
   top: 10px;
   right: 10px;
   position: absolute;
 }
-.messages .message.message-green > .message-content {
+.navbar-fi .messages .message.message-green > .message-content {
   margin-top: 30px;
   text-align: justify;
   font-weight: bold;
