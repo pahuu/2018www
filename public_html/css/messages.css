@@ -1,11 +1,11 @@
-.navbar-fi .messages#okno {
+.messages#okno {
   height: 100vh;
   overflow-y: scroll;
 }
-.navbar-fi .messages .margines {
+.messages .margines {
   margin-bottom: 50px;
 }
-.navbar-fi .messages .message.message-red {
+.messages .message.message-red {
   padding: 10px;
   margin-bottom: 15px;
   background-color: #fafac9;
@@ -14,23 +14,27 @@
   box-shadow: 1px 1px 10px #f0f06d;
   position: relative;
 }
-.navbar-fi .messages .message.message-red > .message-name {
+.messages .message.message-red > .message-name {
   top: 10px;
   left: 10px;
   position: absolute;
 }
-.navbar-fi .messages .message.message-red > .message-data {
+.messages .message.message-red > .message-data {
   top: 10px;
   right: 10px;
   position: absolute;
 }
-.navbar-fi .messages .message.message-red > .message-content {
+.messages .message.message-red > .message-content {
   margin-top: 30px;
   text-align: justify;
   font-weight: bold;
   color: #000;
 }
-.navbar-fi .messages .message.message-green {
+.messages .message.message-red > .message-content img {
+  max-width: 100%;
+  width: auto;
+}
+.messages .message.message-green {
   padding: 10px;
   margin-bottom: 15px;
   background-color: #c9faf1;
@@ -39,19 +43,23 @@
   box-shadow: 1px 1px 10px #6df0d9;
   position: relative;
 }
-.navbar-fi .messages .message.message-green > .message-name {
+.messages .message.message-green > .message-name {
   top: 10px;
   left: 10px;
   position: absolute;
 }
-.navbar-fi .messages .message.message-green > .message-data {
+.messages .message.message-green > .message-data {
   top: 10px;
   right: 10px;
   position: absolute;
 }
-.navbar-fi .messages .message.message-green > .message-content {
+.messages .message.message-green > .message-content {
   margin-top: 30px;
   text-align: justify;
   font-weight: bold;
   color: #000;
+}
+.messages .message.message-green > .message-content img {
+  max-width: 100%;
+  width: auto;
 }
