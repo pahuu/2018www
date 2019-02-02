@@ -9,7 +9,7 @@
   padding: 10px;
   margin-bottom: 15px;
   background-color: #fafac9;
-  color: #b21212;
+  color: #B21212;
   border-radius: 5px;
   box-shadow: 1px 1px 10px #f0f06d;
   position: relative;
@@ -38,7 +38,7 @@
   padding: 10px;
   margin-bottom: 15px;
   background-color: #c9faf1;
-  color: #2eb212;
+  color: #2EB212;
   border-radius: 5px;
   box-shadow: 1px 1px 10px #6df0d9;
   position: relative;
@@ -63,4 +63,3 @@
   max-width: 100%;
   width: auto;
 }
-/*# sourceMappingURL=messages.css.map */

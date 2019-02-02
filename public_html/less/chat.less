@@ -1,0 +1,33 @@
+
+.czat_wariant(@tlo1; @tlo2; @online)
+{
+    
+    #okno {
+        
+        .messages{
+            margin:30px;
+            border-radius:30px;
+            
+            
+            &:nth-child(odd) {
+                background-color: @tlo1;
+            }
+            &:nth-child(even) {
+                background-color: @tlo2;
+            }
+        }
+        
+    }
+    
+}
+
+
+
+.czat {
+    
+    &.niebieski {
+        .czat_wariant(#ebebeb, #286eb5, #2ea051);
+    }
+    
+    
+}

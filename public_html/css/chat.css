@@ -1,0 +1,10 @@
+.czat.niebieski #okno .messages {
+  margin: 30px;
+  border-radius: 30px;
+}
+.czat.niebieski #okno .messages:nth-child(odd) {
+  background-color: #ebebeb;
+}
+.czat.niebieski #okno .messages:nth-child(even) {
+  background-color: #286eb5;
+}

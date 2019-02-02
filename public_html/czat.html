@@ -8,9 +8,13 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <script src="https://code.angularjs.org/1.6.9/angular-sanitize.js"></script>
-        <link href="css/czatGrupud.css" rel="stylesheet" type="text/css"/>
     </head>
-    <body ng-app="myApp" ng-controller="myCtrl" class="czat_czerwony">
+    <body ng-app="myApp" ng-controller="myCtrl" class="czat niebieski">
+        
+        <div class="ikon ikona-11"></div>
+        <div class="ikon ikona-44"></div>
+        <div class="ikon ikona-55"></div>
+        <div class="ikon ikona-87"></div>
         
         <div id="okno">
             <div class="messages" ng-repeat="item in czatdata | orderBy:'id':true | filter: szukaj ">
