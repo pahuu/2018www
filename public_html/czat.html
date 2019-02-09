@@ -17,6 +17,9 @@
         <div class="ikon ikona-87"></div>
         
         <div id="okno">
+            <div class="belka">
+                <h1>{{$storage.name}}</h1>
+            </div>
             <div class="messages" ng-repeat="item in czatdata | orderBy:'id':true | filter: szukaj ">
                     <div data-ala="ma" class="czat-name">Name: <span>{{item.name}}</span></div>
                     <div class="czat-data">Data: <span>{{item.created_at}}</span></div>
@@ -41,6 +44,7 @@
 
             $scope.czatdata = [];
             $scope.$storage.lastid = 0;
+            $scope.$storage.name = "Mateusz P";
             
             dist = (value, index, self) => {
                 return self.indexOf(value) === index;
@@ -65,7 +69,7 @@
                    $scope.content = '<a href="'+$scope.content+'">'+$scope.content+'</a>';
                } 
                 
-                $http.get('http://wsi.ovh:3333/czat?lastid='+$scope.$storage.lastid+'&name='+$scope.$storage.name+'&content='+$scope.content).then( (e)=> {
+                $http.get('http://wsi.ovh/czat?lastid='+$scope.$storage.lastid+'&name='+$scope.$storage.name+'&content='+$scope.content).then( (e)=> {
                     
                     $scope.content = '';
                    // console.log(e.data);
@@ -80,7 +84,7 @@
                 if(!$scope.pytanieDoSerwera)
                 {
                     $scope.pytanieDoSerwera=true; 
-                    $http.get('http://wsi.ovh:3333/czat?lastid='+$scope.$storage.lastid).then( (e)=> {
+                    $http.get('http://wsi.ovh/czat?lastid='+$scope.$storage.lastid).then( (e)=> {
 
                          angular.forEach( e.data, (item, key) => {
 

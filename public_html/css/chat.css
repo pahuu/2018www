@@ -1,3 +1,16 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+.czat.niebieski {
+  font-family: 'Roboto', sans-serif;
+}
+.czat.niebieski #okno .belka {
+  background-color: #286eb5;
+}
+.czat.niebieski #okno .belka h1 {
+  text-align: center;
+  color: #fff;
+  font-size: 24px;
+  padding: 10px;
+}
 .czat.niebieski #okno .messages .czat-data {
   display: none;
 }
@@ -6,7 +19,8 @@
   display: inline-block;
   width: 30px;
   height: 30px;
-  background: transparent url("../img/ikonazdjecie.png") no-repeat center center / 100% auto;
+  border-radius: 15px;
+  background: #286eb5 url("../img/czapka.png") no-repeat center bottom / 50% auto;
 }
 .czat.niebieski #okno .messages .czat-content {
   margin: 30px;
@@ -20,4 +34,3 @@
   background-color: #286eb5;
   color: #ebebeb;
 }
-/*# sourceMappingURL=chat.css.map */

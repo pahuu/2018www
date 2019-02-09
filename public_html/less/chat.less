@@ -1,8 +1,20 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 
 .czat_wariant(@tlo1; @tlo2; @online)
 {
-    
+    font-family: 'Roboto', sans-serif;
     #okno {
+
+        .belka {
+                background-color: @tlo2;
+                h1 {
+                    text-align: center;
+                    color: #fff;
+                    font-size: 24px;
+                    padding: 10px;
+
+                }
+                }
         
         .messages{
             
@@ -13,7 +25,8 @@
                 display: inline-block;
                 width:30px;
                 height: 30px;
-                background: transparent url("../img/ikonazdjecie.png") no-repeat center center / 100% auto;
+                border-radius: 15px;
+                background: @tlo2 url("../img/czapka.png") no-repeat center bottom / 50% auto;
             }
             
             .czat-content { 
