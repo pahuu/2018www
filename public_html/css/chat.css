@@ -1,10 +1,23 @@
-.czat.niebieski #okno .messages {
+.czat.niebieski #okno .messages .czat-data {
+  display: none;
+}
+.czat.niebieski #okno .messages .czat-name {
+  font-size: 0;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background: transparent url("../img/ikonazdjecie.png") no-repeat center center / 100% auto;
+}
+.czat.niebieski #okno .messages .czat-content {
   margin: 30px;
   border-radius: 30px;
 }
-.czat.niebieski #okno .messages:nth-child(odd) {
+.czat.niebieski #okno .messages .czat-content:nth-child(odd) {
   background-color: #ebebeb;
+  color: #286eb5;
 }
-.czat.niebieski #okno .messages:nth-child(even) {
+.czat.niebieski #okno .messages .czat-content:nth-child(even) {
   background-color: #286eb5;
+  color: #ebebeb;
 }
+/*# sourceMappingURL=chat.css.map */

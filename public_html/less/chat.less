@@ -5,15 +5,31 @@
     #okno {
         
         .messages{
-            margin:30px;
-            border-radius:30px;
             
+            .czat-data {display: none;}
             
-            &:nth-child(odd) {
-                background-color: @tlo1;
+            .czat-name {
+                font-size: 0;
+                display: inline-block;
+                width:30px;
+                height: 30px;
+                background: transparent url("../img/ikonazdjecie.png") no-repeat center center / 100% auto;
             }
-            &:nth-child(even) {
-                background-color: @tlo2;
+            
+            .czat-content { 
+            margin:30px;
+            border-radius:30px; 
+                
+             
+                    &:nth-child(odd) {
+                        background-color: @tlo1;
+                        color: @tlo2;
+                    }
+                    &:nth-child(even) {
+                        background-color: @tlo2;
+                        color: @tlo1;
+                    }
+            
             }
         }
         

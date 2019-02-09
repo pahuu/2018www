@@ -18,7 +18,7 @@
   margin: 10px;
   padding: 25px;
   background-color: #ffcccc;
-  color: #000;
+  color: #000000;
   border: 1px solid #660000;
   box-shadow: 0px 0px 10px #ffffff;
   clear: both;
@@ -64,7 +64,7 @@
   margin: 10px;
   padding: 25px;
   background-color: #4dff4d;
-  color: #000;
+  color: #000000;
   border: 1px solid #000000;
   box-shadow: 0px 0px 10px #80ff80;
   clear: both;
@@ -110,7 +110,7 @@
   margin: 10px;
   padding: 25px;
   background-color: #ccccff;
-  color: #000;
+  color: #000000;
   border: 1px solid #000066;
   box-shadow: 0px 0px 10px #ffffff;
   clear: both;
@@ -144,3 +144,4 @@
   width: 100%;
   padding: 20px;
 }
+/*# sourceMappingURL=czatGrupud.css.map */

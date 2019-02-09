@@ -65,7 +65,7 @@
                    $scope.content = '<a href="'+$scope.content+'">'+$scope.content+'</a>';
                } 
                 
-                $http.get('http://wsi.ovh/czat?lastid='+$scope.$storage.lastid+'&name='+$scope.$storage.name+'&content='+$scope.content).then( (e)=> {
+                $http.get('http://wsi.ovh:3333/czat?lastid='+$scope.$storage.lastid+'&name='+$scope.$storage.name+'&content='+$scope.content).then( (e)=> {
                     
                     $scope.content = '';
                    // console.log(e.data);
@@ -80,7 +80,7 @@
                 if(!$scope.pytanieDoSerwera)
                 {
                     $scope.pytanieDoSerwera=true; 
-                    $http.get('http://wsi.ovh/czat?lastid='+$scope.$storage.lastid).then( (e)=> {
+                    $http.get('http://wsi.ovh:3333/czat?lastid='+$scope.$storage.lastid).then( (e)=> {
 
                          angular.forEach( e.data, (item, key) => {
 
